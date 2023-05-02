@@ -148,8 +148,14 @@ class MineSweeper:
         for i in range(self.rows):
             for j in range(self.cols):
                 btn = self.buttons[i][j]
-                btn.grid(row=i, column=j)
+                btn.grid(row=i, column=j, stick='NEWS')
+                
+        for i in range(self.rows):
+            tk.Grid.rowconfigure(self.window, i, weight=1)
 
+        for i in range(self.cols):
+            tk.Grid.columnconfigure(self.window, i, weight=1)
+            
     def change_difficulty(self):
         difficulty_settings = tk.Toplevel(self.window)
         difficulty_settings.wm_title('Level Selection')
