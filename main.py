@@ -198,7 +198,8 @@ class MineSweeper:
             for j in range(self.cols):
                 btn = self.buttons[i][j]
                 if not btn.mine:
-                    mines_count = find_mines(self.buttons, btn.x, btn.y)
+                    mines_count = find_mines(self.buttons, btn.x, btn.y, self.rows, self.cols)
+                    print(self.rows, self.cols)
                     btn.mines_count = mines_count
 
     def print_buttons(self):
