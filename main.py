@@ -121,42 +121,17 @@ class MineSweeper:
         button.config(text='0', disabledforeground='green')
         button.config(state='disabled')  # make sure the button can't be clicked anymore
         self.found += 1
-        if y > 0 and not self.buttons[x][y - 1].open:
-            if self.buttons[x][y - 1].mines_count == 0:
-                self.dfs(self.buttons[x][y - 1])
-            else:
-                self.buttons[x][y - 1].open = True
-                self.buttons[x][y - 1].config(text=str(self.buttons[x][y - 1].mines_count),
-                                              disabledforeground=dict_btn_colors[self.buttons[x][y - 1].mines_count])
-                self.buttons[x][y - 1].config(state='disabled')  # make sure the button can't be clicked anymore
-                self.found += 1
-        if y < self.cols - 1 and not self.buttons[x][y + 1].open:
-            if self.buttons[x][y + 1].mines_count == 0:
-                self.dfs(self.buttons[x][y + 1])
-            else:
-                self.buttons[x][y + 1].open = True
-                self.buttons[x][y + 1].config(text=str(self.buttons[x][y + 1].mines_count),
-                                              disabledforeground=dict_btn_colors[self.buttons[x][y + 1].mines_count])
-                self.buttons[x][y + 1].config(state='disabled')
-                self.found += 1
-        if x > 0 and not self.buttons[x - 1][y].open:
-            if self.buttons[x - 1][y].mines_count == 0:
-                self.dfs(self.buttons[x - 1][y])
-            else:
-                self.buttons[x - 1][y].open = True
-                self.buttons[x - 1][y].config(text=str(self.buttons[x - 1][y].mines_count),
-                                              disabledforeground=dict_btn_colors[self.buttons[x - 1][y].mines_count])
-                self.buttons[x - 1][y].config(state='disabled')
-                self.found += 1
-        if x < self.rows - 1 and not self.buttons[x + 1][y].open:
-            if self.buttons[x + 1][y].mines_count == 0:
-                self.dfs(self.buttons[x + 1][y])
-            else:
-                self.buttons[x + 1][y].open = True
-                self.buttons[x + 1][y].config(text=str(self.buttons[x + 1][y].mines_count),
-                                              disabledforeground=dict_btn_colors[self.buttons[x + 1][y].mines_count])
-                self.buttons[x + 1][y].config(state='disabled')
-                self.found += 1
+        for i in [-1, 0, 1]:
+            for j in [-1, 0, 1]:
+                if (x+i <= self.rows - 1) and (y+j <= self.cols - 1) and (y+j >= 0) and (x+i >= 0) and not self.buttons[x+i][y+j].open:
+                    if self.buttons[x+i][y+j].mines_count == 0:
+                        self.dfs(self.buttons[x+i][y+j])
+                    else:
+                        self.buttons[x+i][y+j].open = True
+                        self.buttons[x+i][y+j].config(text=str(self.buttons[x+i][y+j].mines_count),
+                                                      disabledforeground=dict_btn_colors[self.buttons[x+i][y+j].mines_count])
+                        self.buttons[x+i][y+j].config(state='disabled')  # make sure the button can't be clicked anymore
+                        self.found += 1
 
     def create_widgets(self):
         menubar = tk.Menu(self.window)
